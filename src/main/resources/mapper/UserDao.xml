@@ -44,8 +44,8 @@
 
     <!--添加管理员信息-->
     <insert id="insertUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
-        insert into all_user (username,password,name,phone,student_id,department_id,create_time,update_time,user_role)
-        values(#{username},#{password},#{name},#{phone},#{studentId},#{departmentId},#{createTime},#{updateTime},#{userRole})
+        insert into all_user (username,password,name,phone,department,create_time,update_time,user_role)
+        values(#{username},#{password},#{name},#{phone},#{department},#{createTime},#{updateTime},#{userRole})
     </insert>
 
     <!--通过id删除管理员信息-->
@@ -77,11 +77,8 @@
             <if test="phone !=null and phone !=0">
                 phone=#{phone},
             </if>
-            <if test="studentId !=null and studentId !=''">
-                student_id=#{studentId},
-            </if>
-            <if test="departmentId !=null and departmentId !=''">
-                department_id=#{departmentId},
+            <if test="department !=null and department !=''">
+                department=#{department},
             </if>
             <if test="createTime !=null and createTime !=''">
                 create_time=#{createTime},

@@ -17,8 +17,8 @@
     <link rel="icon" href="/images/favicon.ico" sizes="32x32" />
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
-    <script type="text/javascript" src="./js/jquery-1.3.2.min.js"></script>
-    <script src="lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
+    <script src="/lib/layui/layui.js"></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script src="/layui_exts/excel.js"></script>
 
@@ -195,14 +195,12 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/findAdmin">
+                        <a _href="/findUser">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite>
                         </a>
                     </li >
-
-
                 </ul>
             </li>
 

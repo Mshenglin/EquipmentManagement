@@ -27,5 +27,16 @@ public class UserDaoTest extends BaseTest {
 	System.out.println(userDao.selectUserByUsernameAndPassword(user));
 
 }
+	@Test
+	public void selectTotalCount(){
 
+		System.out.println(userDao.selectTotalCount(null,null));
+
+	}
+	@Test
+	public void selectUserList(){
+
+		System.out.println(userDao.selectUserList(null,null,1,2));
+
+	}
 }

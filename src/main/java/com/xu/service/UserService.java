@@ -1,5 +1,6 @@
 package com.xu.service;
 
+import com.xu.entity.PageInfo;
 import com.xu.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public interface UserService {
      * @param pageSize
      * @return
      */
-    public List<User> findUserList(@Param("username") String username, @Param("id") Integer id, @Param("currentPage") Integer currentPage, @Param("pageSize") Integer pageSize);
+    public PageInfo<User> findUserList(@Param("username") String username, @Param("id") Integer id, @Param("currentPage") Integer currentPage, @Param("pageSize") Integer pageSize);
 
     /**
      * 添加管理员信息

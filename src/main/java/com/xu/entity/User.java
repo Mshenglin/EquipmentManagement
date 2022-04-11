@@ -28,13 +28,9 @@ public class User {
      */
     private Long phone;
     /**
-     * 学号
+     * 部门
      */
-    private String studentId;
-    /**
-     * 部门id
-     */
-    private String departmentId;
+    private String department;
     /**
      * 注册时间
      */
@@ -51,17 +47,24 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String name, Long phone, String studentId, String departmentId, Long createTime, Long updateTime, Integer userRole) {
+    public User(Long id, String username, String password, String name, Long phone, String studentId, String department, Long createTime, Long updateTime, Integer userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.phone = phone;
-        this.studentId = studentId;
-        this.departmentId = departmentId;
+        this.department = department;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.userRole = userRole;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     @Override
@@ -73,12 +76,12 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return getId().equals(user.getId()) && getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) && getName().equals(user.getName()) && getPhone().equals(user.getPhone()) && getStudentId().equals(user.getStudentId()) && getDepartmentId().equals(user.getDepartmentId()) && getCreateTime().equals(user.getCreateTime()) && getUpdateTime().equals(user.getUpdateTime()) && getUserRole().equals(user.getUserRole());
+        return getId().equals(user.getId()) && getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) && getName().equals(user.getName()) && getPhone().equals(user.getPhone()) && getDepartment().equals(user.getDepartment()) && getCreateTime().equals(user.getCreateTime()) && getUpdateTime().equals(user.getUpdateTime()) && getUserRole().equals(user.getUserRole());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getPassword(), getName(), getPhone(), getStudentId(), getDepartmentId(), getCreateTime(), getUpdateTime(), getUserRole());
+        return Objects.hash(getId(), getUsername(), getPassword(), getName(), getPhone(), getDepartment(), getCreateTime(), getUpdateTime(), getUserRole());
     }
 
     public Long getId() {
@@ -121,21 +124,6 @@ public class User {
         this.phone = phone;
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
 
     public Long getCreateTime() {
         return createTime;
@@ -169,8 +157,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", phone=" + phone +
-                ", studentId='" + studentId + '\'' +
-                ", departmentId='" + departmentId + '\'' +
+                ", department='" + department+ '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", userRole=" + userRole +
