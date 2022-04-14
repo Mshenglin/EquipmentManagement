@@ -11,10 +11,11 @@
     <title>后台登录</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <%--<meta http-equiv="Cache-Control" content="no-siteapp" />--%>
 
-    <link rel="icon" href="/images/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/images/favicon.ico" sizes="32x32"/>
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
@@ -23,14 +24,15 @@
     <script src="/layui_exts/excel.js"></script>
 
     <style>
-        .o_div{
+        .o_div {
             background: url("/images/01.jpg") no-repeat;
         }
-        .o_span{
+
+        .o_span {
             display: block;
             text-align: center;
             font-size: 20px;
-            letter-spacing:8px
+            letter-spacing: 8px
         }
     </style>
 </head>
@@ -60,27 +62,8 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6b8;</i>
-                    <cite>学生管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/findStudent">
-                            <%--点击在右侧出现动态的Tab--%>
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>学生信息</cite>
-
-                        </a>
-                    </li >
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>班级管理</cite>
+                    <cite>器材管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
@@ -88,17 +71,17 @@
                         <a _href="/findClass">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>班级列表</cite>
+                            <cite>实验器材管理</cite>
                         </a>
-                    </li >
+                    </li>
 
                     <li>
                         <a _href="/findClassStudent">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>班级学生</cite>
+                            <cite>器材操作日志查询</cite>
                         </a>
-                    </li >
+                    </li>
                 </ul>
             </li>
 
@@ -106,7 +89,7 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#59095;</i>
-                    <cite>宿舍管理</cite>
+                    <cite>器材类型管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
@@ -114,9 +97,9 @@
                         <a _href="/findDormitory">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>宿舍列表</cite>
+                            <cite>实验器材类型管理</cite>
                         </a>
-                    </li >
+                    </li>
                 </ul>
 
                 <ul class="sub-menu">
@@ -124,69 +107,11 @@
                         <a _href="/findDormitoryStudent">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>人员信息</cite>
+                            <cite>实验器材日志查询</cite>
                         </a>
-                    </li >
-                </ul>
-
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/findDormRepair">
-                            <%--点击在右侧出现动态的Tab--%>
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>维修登记</cite>
-                        </a>
-                    </li >
-                </ul>
-
-            </li>
-
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#59042;</i>
-                    <cite>卫生管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/findDormClean">
-                            <%--点击在右侧出现动态的Tab--%>
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>宿舍卫生</cite>
-                        </a>
-                    </li >
-                </ul>
-
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/findStudentClean">
-                            <%--点击在右侧出现动态的Tab--%>
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>学生卫生</cite>
-                        </a>
-                    </li >
-                </ul>
-
-            </li>
-
-            <li>
-                <a href="javascript:;">
-                    <i class="layui-icon">&#xe613;</i>
-                    <cite>访客管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/findVisitor">
-                            <%--点击在右侧出现动态的Tab--%>
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>访客列表</cite>
-                        </a>
-                    </li >
+                    </li>
                 </ul>
             </li>
-
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>
@@ -200,11 +125,9 @@
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite>
                         </a>
-                    </li >
+                    </li>
                 </ul>
             </li>
-
-
         </ul>
     </div>
 </div>
@@ -216,16 +139,16 @@
         <ul class="layui-tab-title">
             <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
         </ul>
-        <div class="layui-tab-content" >
-            <div class="layui-tab-item layui-show o_div" >
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show o_div">
                 <span class="o_span">${sessionScope.ad.username}管理员，欢迎来到实验室器材系统！</span>
                 <div class="layui-col-md6" style="padding: 30px;left: 60px;background-color: #F2F2F2;">
-                <div class="layui-card">
-                <div class="layui-card-header">个人信息
+                    <div class="layui-card">
+                        <div class="layui-card-header">个人信息
                         </div>
                         <div class="layui-card-body">
                             <%--<div class="layui-form-label" style="text-align: left">你好</div>--%>
-                           用户名：${sessionScope.ad.username}
+                            用户名：${sessionScope.ad.username}
                         </div>
                         <div class="layui-card-body">
                             姓名：${sessionScope.ad.name}
@@ -233,7 +156,7 @@
                         <div class="layui-card-body">
                             电话：${sessionScope.ad.phone}
                         </div>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
