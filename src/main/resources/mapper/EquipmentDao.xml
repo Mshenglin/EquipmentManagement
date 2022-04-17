@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.EquipmentDao" >
+    <!--添加器材信息-->
+    <insert id="insertEquipment" parameterType="Equipment" keyProperty="id" useGeneratedKeys="true">
+        insert into equipment (code,name,price,department,description,leader_id,equipment_type_id,equipment_status,create_time,update_time)
+        values(#{code},#{name},#{price},#{department},
+        <if test="description!=null and description!=0">
+            #{description}
+        </if> ,#{leaderId},#{equipmentTypeId},#{equipmentStatus},#{createTime},#{updateTime})
+    </insert>
+
+    <!--通过id删除器材信息-->
+    <delete id="deleteEquipment" parameterType="Long" >
+        delete from equipment where id=#{id}
+    </delete>
+
+    <select id="selectEquipmentById"  parameterType="Long" resultType="Equipment" >
+        select * from equipment where id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="Equipment">
+        select * from equipment;
+    </select>
+
+    <!--修改器材信息-->
+    <update id="updateEquipment" parameterType="Equipment">
+        update equipment
+        <set>
+            <if test="code!=null and code !=''">
+                code=#{code},
+            </if>
+            <if test="name !=null and name !=''">
+                name=#{name},
+            </if>
+            <if test="price !=null and price !=''">
+                price=#{price},
+            </if>
+            <if test="department !=null and department !=0">
+                department=#{department},
+            </if>
+            <if test="description !=null and description !=0">
+                description=#{description},
+            </if>
+            <if test="leaderId !=null and leaderId !=''">
+                leader_id=#{leaderId},
+            </if>
+            <if test="equipmentTypeId !=null and equipmentTypeId !=''">
+                equipment_type_id=#{createTime},
+            </if>
+            <if test="equipmentStatus !=null and equipmentStatus !=''">
+                equipment_status=#{equipmentStatus},
+            </if>
+            <if test="createTime !=null and createTime !=''">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null and updateTime !=''">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <resultMap id="EquipmentResult" type="EquipmentResult">
+
+    </resultMap>
+    <!--分页查询-->
+    <select id="selectEquipmentList"  resultType="EquipmentResult">
+        SELECT e.*,u.name leader_name,t.name equipment_type_name
+        FROM
+        equipment e
+        left JOIN equipment_type t ON e.equipment_type_id = t.id
+        left JOIN all_user u ON u.id=e.`leader_id`
+        <where>
+            <if test="id!=null and id!=0">
+                and  id like  '%${id}%'
+            </if>
+            <if test="code!=null and code!='' ">
+                and  code like  '%${code}%'
+            </if>
+            <if test="name!=null and name!='' ">
+                and  name like  '%${name}%'
+            </if>
+            <if test="equipmentType!=null and equipmentType!='' ">
+                and  equipmentType like  '%${equipmentType}%'
+            </if>
+            <if test="department!=null and department!='' ">
+                and  department like  '%${department}%'
+            </if>
+        </where>
+        ORDER BY  id asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="selectTotalCount" resultType="Integer">
+        select count(id) from equipment
+        <where>
+            <if test="id!=null and id!=0">
+                and  id like  '%${id}%'
+            </if>
+            <if test="code!=null and code!='' ">
+                and  code like  '%${code}%'
+            </if>
+            <if test="name!=null and name!='' ">
+                and  name like  '%${name}%'
+            </if>
+            <if test="equipmentType!=null and equipmentType!='' ">
+                and  equipmentType like  '%${equipmentType}%'
+            </if>
+            <if test="department!=null and department!='' ">
+                and  department like  '%${department}%'
+            </if>
+        </where>
+    </select>
+</mapper>

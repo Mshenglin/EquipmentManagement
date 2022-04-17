@@ -6,11 +6,11 @@ package com.xu.entity;
  */
 public class EquipmentType {
     Long id;
-    String Long;
+    String EquipmentTypeName;
 
-    public EquipmentType(java.lang.Long id, String aLong) {
+    public EquipmentType(java.lang.Long id, String EquipmentTypeName) {
         this.id = id;
-        Long = aLong;
+        this.EquipmentTypeName = EquipmentTypeName;
     }
 
     public java.lang.Long getId() {
@@ -21,19 +21,19 @@ public class EquipmentType {
         this.id = id;
     }
 
-    public String getLong() {
-        return Long;
+    public String getEquipmentTypeName() {
+        return EquipmentTypeName;
     }
 
     public void setLong(String aLong) {
-        Long = aLong;
+        this.EquipmentTypeName = EquipmentTypeName;
     }
 
     @Override
     public String toString() {
         return "EquipmentType{" +
                 "id=" + id +
-                ", Long='" + Long + '\'' +
+                ", Long='" + EquipmentTypeName + '\'' +
                 '}';
     }
 }

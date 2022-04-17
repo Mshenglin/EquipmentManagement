@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PageInfo<T> implements Serializable {
     private Integer pageIndex =1;//页码
-    private Integer pageSize =3;//显示条数
+    private Integer pageSize =5;//显示条数
     private Integer totalCount =0; //总条数
     private Integer pageTotalCount =0; //总页数
     //每页显示的数据集合
@@ -30,7 +30,7 @@ public class PageInfo<T> implements Serializable {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
         if (pageSize ==null || pageSize<1){
-            this.pageSize =3;
+            this.pageSize =5;
         }
     }
 

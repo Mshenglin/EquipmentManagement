@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户控制层
@@ -77,8 +78,8 @@ public class UserController {
     @RequestMapping(value = "/sign")
     public String sign(User user,Model model) {
 
-        user.setCreateTime(System.currentTimeMillis());
-        user.setUpdateTime(System.currentTimeMillis());
+        user.setCreateTime(System.currentTimeMillis()*1000);
+        user.setUpdateTime(System.currentTimeMillis()*1000);
         //权限默认是普通用户
         user.setUserRole(1);
         int result=userService.insertUser(user);
@@ -123,7 +124,7 @@ public class UserController {
         return "admin_edit";
     }
     /**
-     * 删除管理员信息；将请求体a_id写入参数a_id
+     * 删除管理员信息；将请求体id写入参数id
      */
     @RequestMapping( "/deleteAdmin")
     @ResponseBody
@@ -137,8 +138,8 @@ public class UserController {
      * 将提交数据写入User对象
      */
     @RequestMapping( value = "/updateUser", method = RequestMethod.POST)
-    public String updateAdmin(User user) {
-        user.setUpdateTime(System.currentTimeMillis());
+    public String updateUser(User user) {
+        user.setUpdateTime(System.currentTimeMillis()*1000);
         int a = userService.updateUser(user);
         return "redirect:/findUser";
     }
@@ -147,8 +148,18 @@ public class UserController {
      */
     @RequestMapping(value = "/exportUserList" , method = RequestMethod.POST)
     @ResponseBody
-    public List<User> exportAdmin(){
+    public List<User> exportUser(){
         List<User> admin = userService.findAll();
         return admin;
+    }
+    /**
+     * 获取用户id和用户名称的映射
+     */
+    @RequestMapping(value = "/findUserIdAndName")
+    @ResponseBody
+    public List<Map<Long,String>> findUserIdAndName(){
+        List<Map<Long,String>> result=userService.findUserIdAndName();
+        logger.info("用户直接的隐射为",result);
+        return result;
     }
 }

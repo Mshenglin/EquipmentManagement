@@ -5,6 +5,7 @@ import com.xu.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户DAO层接口
@@ -67,4 +68,10 @@ public interface UserDao {
      * @return
      */
     public List<User> selectAll();
+
+    /**
+     * 查询用户表id和name的映射
+     * @return
+     */
+    public List<Map<Long,String>> selectUserIdAndUserName();
 }

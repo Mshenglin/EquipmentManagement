@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Service层
@@ -68,4 +69,10 @@ public interface UserService {
      * @return
      */
     public List<User> findAll();
+
+    /**
+     * 查找用户的id和name映射
+     * @return
+     */
+    public List<Map<Long,String>> findUserIdAndName();
 }

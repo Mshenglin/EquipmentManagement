@@ -5,9 +5,11 @@
   Time: 14:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  import="com.xu" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  import="com.xu.entity.EquipmentResult" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>后台登录</title>
@@ -17,13 +19,13 @@
     <%--<meta http-equiv="Cache-Control" content="no-siteapp" />--%>
 
     <link rel="icon" href="/images/favicon.ico" sizes="32x32" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
-    <script type="text/javascript" src="./js/jquery-1.3.2.min.js"></script>
-    <script src="lib/layui/layui.js"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
+    <script src="/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
     <script src="/layui_exts/excel.js"></script>
-
+    <script type="text/javascript" src="/js/equipment.js"></script>
     <style type="text/css">
         .layui-table{
                 text-align: center;
@@ -38,25 +40,26 @@
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
-        <a href="/findStudent">器材信息</a>
+        <a href="/findEquipment">器材信息</a>
       </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="/findStudent" title="刷新">
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="/findEquipment" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="/findStudent" >
-            <input class="layui-input" placeholder="请输入姓名" name="s_name" id="s_name">
-            <input class="layui-input" placeholder="请输入学号" name="s_studentid" id="s_studentid">
-            <input class="layui-input" placeholder="请输入班级编号" name="s_classid" id="s_classid">
-            <input class="layui-input" placeholder="请输入班级名" name="s_classname" id="s_classname">
+        <form class="layui-form layui-col-md12 x-so" action="/findEquipment" >
+            <input class="layui-input" placeholder="请输入器材id" name="id" id="id">
+            <input class="layui-input" placeholder="请输入器材编号" name="code" id="code">
+            <input class="layui-input" placeholder="请输入名称" name="name" id="name">
+            <input class="layui-input" placeholder="请输入器材类型" name="equipmentType" id="equipmentType">
+            <input class="layui-input" placeholder="请输入所属部门" name="department" id="department">
             <input class="layui-input" type="hidden" name="pageIndex" value="1">
-            <input class="layui-input" type="hidden" name="pageSize" value="3">
+            <input class="layui-input" type="hidden" name="pageSize" value="5">
             <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <xblock>
-        <button id="addStudnetBtn" class="layui-btn layui-btn-normal"> <i class="layui-icon">&#xe654;</i>添加 </button>
+        <button id="addEquipmentBtn" class="layui-btn layui-btn-normal"> <i class="layui-icon">&#xe654;</i>添加 </button>
         <button class="layui-btn layui-btn-warm" lay-filter="toolbarDemo" lay-submit=""><i class="layui-icon">&#xe67c;</i>导出</button>
         <span class="x-right" style="line-height:40px">共有数据：${pi.totalCount} 条</span>
     </xblock>
@@ -66,46 +69,50 @@
         <div class="layui-col-md10">
             <form class="layui-form" id="addEmployeeForm">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学号：</label>
+                    <label class="layui-form-label">器材编号：</label>
                     <div class="layui-input-block">
-                        <input type="text" lay-verify="required" name="s_studentid"   class="layui-input" placeholder="请输入学号">
+                        <input type="text" lay-verify="required" name="code"   class="layui-input" placeholder="请输入器材编号">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">姓名：</label>
+                    <label class="layui-form-label">名称：</label>
                     <div class="layui-input-block">
-                        <input type="text" lay-verify="required" name="s_name"  class="layui-input" placeholder="请输入姓名">
+                        <input type="text" lay-verify="required" name="name"  class="layui-input" placeholder="请输入器材名称">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
+                    <label class="layui-form-label">价格：</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="s_sex" value="男" title="男" checked="">
-                        <input type="radio" name="s_sex" value="女" title="女">
-                        <%--<input type="text" name="s_sex" class="layui-input" id="s_sex" placeholder="请输入性别">--%>
+                        <input type="text" name="price" class="layui-input" i placeholder="请输入价格">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
-                    <label class="layui-form-label">年龄：</label>
+                    <label class="layui-form-label">部门选择</label>
                     <div class="layui-input-block">
-                        <input type="text" name="s_age" class="layui-input" i placeholder="请输入年龄">
+                        <select name="department" lay-verify="required">
+                            <option value=""></option>
+                            <option value="物联网">物联网</option>
+                            <option value="电科">电科</option>
+                            <option value="通工">通工</option>
+                            <option value="安全">安全</option>
+                            <option value="对抗">对抗</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">描述：</label>
+                    <div class="layui-input-block">
+                        <input type="text"  name="description"  class="layui-input" placeholder="请输入器材描述">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
-                    <label class="layui-form-label">电话：</label>
+                    <label class="layui-form-label">负责人：</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="s_phone"  class="layui-input" placeholder="请输入电话">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">班级编号：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="s_classid" class="layui-input" placeholder="请输入班级编号">
+                    <select name="leaderId" id="classifyId">
+                        <option value="">请选择</option>
+                    </select>
                     </div>
                 </div>
 
@@ -132,7 +139,6 @@
             </form>
         </div>
     </div>
-
 
 
     <%--编辑模态框--%>
@@ -218,37 +224,54 @@
                 <%--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>--%>
             <%--</th>--%>
             <th>ID</th>
-            <th>学号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>电话</th>
-            <th>班级编号</th>
-            <th>班级名</th>
-            <th>寝室编号</th>
-            <th>操作</th>
+            <th>器材编号</th>
+            <th>名称</th>
+            <th>价格</th>
+            <th>负责人</th>
+            <th>器材类型</th>
+                <th>部门</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+            <th>描述</th>
+            <th>器材状态</th>
+                <th>操作</th>
         </thead>
-        <tbody>
-<c:forEach items="${pi.list}" var="student">
+        <tbody id="admin-list">
+<c:forEach items="${pi.list}" var="equipment">
         <tr>
             <%--<td>--%>
                 <%--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>--%>
             <%--</td>--%>
-            <td>${student.s_id}</td>
-            <td>${student.s_studentid}</td>
-            <td>${student.s_name}</td>
-            <td>${student.s_sex}</td>
-            <td>${student.s_age}</td>
-            <td>${student.s_phone}</td>
-            <td>${student.s_classid}</td>
-            <td>${student.s_classname}</td>
-            <td>${student.s_dormitoryid}</td>
+            <td>${equipment.id}</td>
+            <td>${equipment.code}</td>
+            <td>${equipment.name}</td>
+            <td>${equipment.price}</td>
+            <td>${equipment.leaderName}</td>
+            <td>${equipment.equipmentTypeName}</td>
+                <td>${equipment.department}</td>
             <td>
-                <a title="编辑"    id= "updateEdit"    href="/findStudentById?s_id=${student.s_id}">
+                <jsp:useBean id="dateValue" class="java.util.Date"/>
+                <jsp:setProperty name="dateValue" property="time" value="${equipment.createTime}"/>
+                <fmt:formatDate value="${dateValue}" pattern="yyyy/MM/dd HH:mm"/>
+            </td>
+            <td>
+                <jsp:useBean id="dateValueTwo" class="java.util.Date"/>
+                <jsp:setProperty name="dateValueTwo" property="time" value="${equipment.updateTime}"/>
+                <fmt:formatDate value="${dateValueTwo}" pattern="yyyy/MM/dd HH:mm"/>
+            </td>
+                <td>${equipment.description}</td>
+                <c:if test="${equipment.equipmentStatus==0}">
+                <td>已入库</td>
+                </c:if>
+                <c:if test="${equipment.equipmentStatus==1}">
+                    <td>已出库</td>
+                </c:if>
+                <td>
+                <a title="编辑"    id= "updateEdit"    href="/findEquipmentById?s_id=${equipment.id}">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
-                <a title="删除" onclick="member_del(this,'${student.s_id}')" href="javascript:;">
-                    <i class="layui-icon">&#xe640;</i>
+                <a title="出库" onclick="member_del(this,'${equipment.id}')" href="javascript:;">
+                    <i class="layui-icon">&#x1007;</i>
                 </a>
             </td>
         </tr>
@@ -335,20 +358,39 @@
 
                 error: function () {
                     //console.log(data);
-                    setTimeout(function () {window.location.href='/findStudent';},2000);
+                    setTimeout(function () {window.location.href='/findEquipment';},2000);
                 }
             });
         });
 
         /*添加弹出框*/
-        $("#addStudnetBtn").click(function () {
+        $("#addEquipmentBtn").click(function () {
             layer.open({
                 type:1,
-                title:"添加学生",
+                title:"添加实验室器材",
                 skin:"myclass",
                 area:["50%"],
                 anim:2,
-                content:$("#test").html()
+                content:$("#test")
+            });
+            //下拉框可能会用到 New option
+            //这个里面的参数说明 第一个是显示的文本，第二个是value值
+            //例如：new Option(item.xm, item.id)第一个参数是下拉列表中显示的值  第二个参数是选中传递给后台的值
+            layui.use(['form', 'upload', 'layer'],function(){
+                var form = layui.form;
+                $.ajax({
+                    url: '/findUserIdAndName',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (data) {
+                        //使用循环遍历，给下拉列表赋值
+                        for(let i of data){
+                            $('#classifyId').append(new Option(i.name, i.id));
+                        }
+                        form.render();
+                        //重新渲染 固定写法
+                    }
+                })
             });
             $("#addEmployeeForm")[0].reset();
             form.on('submit(formDemo)', function(data) {
@@ -362,12 +404,12 @@
                     contentType: "application/json; charset=utf-8",
                     success:function(){
                             layer.msg('添加成功', {icon: 1, time: 3000});
-                            setTimeout(function () {window.location.href='/findStudent';},2000);
+                            setTimeout(function () {window.location.href='/findEquipment';},2000);
 
                     },
                     error:function(){
                         layer.msg('添加失败',{icon:0,time:3000});
-                        setTimeout(function () {window.location.href='/findStudent';},2000);
+                        setTimeout(function () {window.location.href='/findEquipment';},2000);
                     }
                 });
                 // return false;
@@ -376,9 +418,6 @@
 
 
     });
-
-
-
     /*删除*/
     function member_del(obj,s_id){
         layer.confirm('确认要删除吗？',function(index){
@@ -386,11 +425,11 @@
            $.get("/deleteStudent",{"s_id":s_id},function (data) {
                 if(data =true){
                     layer.msg('删除成功!',{icon:1,time:2000});
-                  setTimeout(function () {window.location.href='/findStudent';},2000);
+                  setTimeout(function () {window.location.href='/findEquipment';},2000);
 
                 }else {
                     layer.msg('删除失败!',{icon:1,time:3000});
-                    setTimeout(function () {window.location.href='/findStudent';},2000);
+                    setTimeout(function () {window.location.href='/findEquipment';},2000);
                 }
             });
         });

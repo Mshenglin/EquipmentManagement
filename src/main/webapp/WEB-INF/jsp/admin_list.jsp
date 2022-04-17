@@ -87,7 +87,13 @@
             <td>${ai.phone}</td>
             <%--<td>${ai.power}</td>--%>
             <td>${ai.department}</td>
-                <td>${ai.userRole}</td>
+                <c:if test="${ai.userRole==0}">
+                <td>管理员</td>
+                </c:if>
+                <c:if test="${ai.userRole==1}">
+                    <td>普通用户</td>
+                </c:if>
+
             <td class="td-manage">
                 <%--href="/findUserById?id=${ai.id}"--%>
                 <a title="编辑" class="updateEdit" href="#">

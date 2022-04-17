@@ -24,6 +24,7 @@ CREATE TABLE `all_user` (
 INSERT INTO `all_user` VALUES ('2', 'liyang', '123', '李阳', 15891273446,'电科',1645449938,1645449938,1);
 INSERT INTO `all_user` VALUES ('3', 'wangshuai', '123', '王帅', 15891273446,'物联网',1645449938,1645449938,1);
 INSERT INTO `all_user` VALUES ('4', 'zhangsan', '123', '张三', 15891273446,'通工',1645449938,1645449938,1);
+DROP TABLE IF EXISTS `equipment`;
 -- 器材表
 CREATE TABLE `equipment`(
                             `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -34,15 +35,16 @@ CREATE TABLE `equipment`(
                             `description` VARCHAR(50) DEFAULT NULL  COMMENT '描述',
                             `leader_id` INT(10) DEFAULT NULL  COMMENT '负责人id',
                             `equipment_type_id` INT(10) DEFAULT NULL  COMMENT '实验器材类型id',
+                            `equipment_status` INT(2) NOT NULL COMMENT '器材状态，0已入库，1出库',
                             `create_time` BIGINT(20)  NOT NULL COMMENT '创建时间',
                             `update_time` BIGINT(20)  NOT NULL COMMENT '修改时间',
                             PRIMARY KEY (`id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='器材表';
-INSERT INTO `equipment`VALUES('1','s-1','主机',200.0,'物联网',NULL,1,1,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('2','j-1','键盘',50.0,'物联网',NULL,1,1,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('3','x-1','显示器',50.0,'物联网',NULL,1,1,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('4','w-1','网线',20.0,'电科',NULL,1,1,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('5','d-1','51单片机',20.0,'通工',NULL,1,1,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('1','s-1','主机',200.0,'物联网',NULL,1,1,0,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('2','j-1','键盘',50.0,'物联网',NULL,1,1,0,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('3','x-1','显示器',50.0,'物联网',NULL,1,1,0,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('4','w-1','网线',20.0,'电科',NULL,1,1,0,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('5','d-1','51单片机',20.0,'通工',NULL,1,1,0,1645449938,1645449938);
 -- 器材类型表
 CREATE TABLE `equipment_type`(
                                  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',

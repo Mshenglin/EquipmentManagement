@@ -68,7 +68,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/findClass">
+                        <a _href="/findEquipment">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>实验器材管理</cite>

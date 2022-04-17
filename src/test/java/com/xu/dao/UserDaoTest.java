@@ -39,4 +39,10 @@ public class UserDaoTest extends BaseTest {
 		System.out.println(userDao.selectUserList(null,null,1,2));
 
 	}
+	@Test
+	public void selectUserIdAndName(){
+
+		System.out.println(userDao.selectUserIdAndUserName());
+
+	}
 }

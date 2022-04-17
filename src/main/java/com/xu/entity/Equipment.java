@@ -24,6 +24,17 @@ public class Equipment {
      */
     private Double price;
     /**
+     * 部门
+     */
+    private String department;
+
+
+
+    /**
+     * 描述
+     */
+    private String description;
+    /**
      * 负责人id
      */
     private Integer leaderId;
@@ -31,10 +42,11 @@ public class Equipment {
      * 器材类型id
      */
     private Integer equipmentTypeId;
+
     /**
-     * 部门
+     * 器材类型id
      */
-    private String department;
+    private Integer equipmentStatus;
     /**
      * 创建时间
      */
@@ -90,7 +102,13 @@ public class Equipment {
     public void setPrice(Double price) {
         this.price = price;
     }
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public Integer getLeaderId() {
         return leaderId;
     }
@@ -131,17 +149,18 @@ public class Equipment {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Equipment)) return false;
-        Equipment equipment = (Equipment) o;
-        return Objects.equals(getId(), equipment.getId()) && Objects.equals(getCode(), equipment.getCode()) && Objects.equals(getName(), equipment.getName()) && Objects.equals(getPrice(), equipment.getPrice()) && Objects.equals(getLeaderId(), equipment.getLeaderId()) && Objects.equals(getEquipmentTypeId(), equipment.getEquipmentTypeId()) && Objects.equals(getDepartment(), equipment.getDepartment()) && Objects.equals(getCreateTime(), equipment.getCreateTime()) && Objects.equals(getUpdateTime(), equipment.getUpdateTime());
-    }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getCode(), getName(), getPrice(), getLeaderId(), getEquipmentTypeId(), getDepartment(), getCreateTime(), getUpdateTime());
+    }
+
+    public Integer getEquipmentStatus() {
+        return equipmentStatus;
+    }
+
+    public void setEquipmentStatus(Integer equipmentStatus) {
+        this.equipmentStatus = equipmentStatus;
     }
 
     @Override
@@ -151,9 +170,11 @@ public class Equipment {
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", department='" + department + '\'' +
+                ", description='" + description + '\'' +
                 ", leaderId=" + leaderId +
                 ", equipmentTypeId=" + equipmentTypeId +
-                ", department='" + department + '\'' +
+                ", equipmentStatus=" + equipmentStatus +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

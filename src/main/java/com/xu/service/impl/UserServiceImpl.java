@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alkmg
@@ -68,5 +69,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userDao.selectAll();
+    }
+
+    @Override
+    public List<Map<Long, String>> findUserIdAndName() {
+        return userDao.selectUserIdAndUserName();
     }
 }
