@@ -1,12 +1,13 @@
 package com.xu.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * 实验室器材实体类
  * @author mashenglin
  */
-public class Equipment {
+public class Equipment implements Serializable {
     /**
      * 器材id
      */

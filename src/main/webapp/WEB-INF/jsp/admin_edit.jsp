@@ -45,7 +45,6 @@
                        autocomplete="off" value="${sessionScope.a.username}" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <label for="password" class="layui-form-label">
                 <span class="">密码</span>
@@ -55,7 +54,6 @@
                        autocomplete="off" value="${sessionScope.a.password}" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <label for="name" class="layui-form-label">
                 <span class="">姓名</span>
@@ -65,7 +63,6 @@
                        autocomplete="off" value="${sessionScope.a.name}" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <label for="phone" class="layui-form-label">
                 <span class="">电话</span>
@@ -75,7 +72,6 @@
                        autocomplete="off" value="${sessionScope.a.phone}" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
             <label for="userRole" class="layui-form-label">
                 <span class="">级别</span>
@@ -100,8 +96,6 @@
                     </select>
             </div>
         </div>
-
-
         <div class="layui-form-item" id="btn_xg">
             <button  class="layui-btn" id="btn_on"  lay-submit="" lay-filter="updateAdmin">
                 修改

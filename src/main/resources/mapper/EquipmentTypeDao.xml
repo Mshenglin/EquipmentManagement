@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.EquipmentTypeDao" >
+    <!--添加器材类型信息-->
+    <insert id="insertEquipmentType" parameterType="EquipmentType" keyProperty="id" useGeneratedKeys="true">
+        insert into equipment_type (name)
+        values(#{name})
+    </insert>
+
+    <!--通过id删除器材类型信息-->
+    <delete id="deleteEquipmentType" parameterType="Long" >
+        delete from equipment_type where id=#{id}
+    </delete>
+
+    <select id="selectEquipmentTypeById"  parameterType="Long" resultType="EquipmentType" >
+        select * from equipment_type where id=#{id}
+    </select>
+
+    <select id="selectEquipmentTypeByName"  parameterType="String" resultType="Long" >
+        select * from equipment_type where name=#{name}
+    </select>
+    <select id="selectAll" resultType="EquipmentType">
+        select * from equipment_type;
+    </select>
+
+    <!--修改器材信息-->
+    <update id="updateEquipmentType" parameterType="EquipmentType">
+        update equipment_type
+        <set>
+            <if test="updateTime !=null and updateTime !=''">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--分页查询-->
+    <select id="selectEquipmentTypeList"  resultType="EquipmentType">
+        SELECT *
+        FROM
+        equipment_type
+        ORDER BY  id asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="selectTotalCount" resultType="Integer">
+        select count(id) from equipment_type
+        <where>
+            <if test="id!=null and id!=0">
+                and  id like  '%${id}%'
+            </if>
+        </where>
+    </select>
+</mapper>

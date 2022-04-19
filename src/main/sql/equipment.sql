@@ -40,11 +40,11 @@ CREATE TABLE `equipment`(
                             `update_time` BIGINT(20)  NOT NULL COMMENT '修改时间',
                             PRIMARY KEY (`id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COMMENT='器材表';
-INSERT INTO `equipment`VALUES('1','s-1','主机',200.0,'物联网',NULL,1,1,0,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('2','j-1','键盘',50.0,'物联网',NULL,1,1,0,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('3','x-1','显示器',50.0,'物联网',NULL,1,1,0,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('4','w-1','网线',20.0,'电科',NULL,1,1,0,1645449938,1645449938);
-INSERT INTO `equipment`VALUES('5','d-1','51单片机',20.0,'通工',NULL,1,1,0,1645449938,1645449938);
+INSERT INTO `equipment`VALUES('1','s-1','主机',200.0,'物联网',NULL,1,1,0,1645449938000,1645449938000);
+INSERT INTO `equipment`VALUES('2','j-1','键盘',50.0,'物联网',NULL,2,3,0,1645449938000,1645449938000);
+INSERT INTO `equipment`VALUES('3','x-1','显示器',50.0,'物联网',NULL,3,2,0,1645449938000,1645449938000);
+INSERT INTO `equipment`VALUES('4','w-1','网线',20.0,'电科',NULL,2,1,0,1645449938000,16454499380000);
+INSERT INTO `equipment`VALUES('5','d-1','51单片机',20.0,'通工',NULL,3,3,0,1645449938000,1645449938000);
 -- 器材类型表
 CREATE TABLE `equipment_type`(
                                  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',

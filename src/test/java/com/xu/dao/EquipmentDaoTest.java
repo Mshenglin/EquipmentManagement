@@ -1,6 +1,7 @@
 package com.xu.dao;
 
 import com.xu.BaseTest;
+import com.xu.entity.EquipmentExportResult;
 import com.xu.entity.EquipmentResult;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class EquipmentDaoTest extends BaseTest {
     public void selectList(){
         List<EquipmentResult> e=new ArrayList<>();
         System.out.println(e=equipmentDao.selectEquipmentList(null,null,null,null,null,1,3));
+    }
+    @Test
+    public void selectExportList(){
+        List<EquipmentResult> e=new ArrayList<>();
+        System.out.println(e=equipmentDao.selectEquipmentExportList());
     }
 }

@@ -117,19 +117,13 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">班级名：</label>
+                    <label class="layui-form-label">器材类型：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="s_classname" class="layui-input" placeholder="请输入班级名">
+                        <select name="equipmentTypeId" id="classTypeId">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
                 </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">寝室编号：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="s_dormitoryid"  class="layui-input" placeholder="请输入寝室编号">
-                    </div>
-                </div>
-
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">提交</button>
@@ -146,7 +140,7 @@
     <div class="layui-row" id="updteDiv" style="display: none;">
         <div class="layui-col-md10">
             <form class="layui-form" id="addUpdatForm" >
-                <input value="${sessionScope.sid}" type="text"  name="s_id" id="edit_id"/>
+                <input value="${sessionScope.sid}" type="text"  name="id" id="edit_id"/>
                 <div class="layui-form-item">
                     <label class="layui-form-label">学号：</label>
                     <div class="layui-input-block">
@@ -267,13 +261,16 @@
                     <td>已出库</td>
                 </c:if>
                 <td>
-                <a title="编辑"    id= "updateEdit"    href="/findEquipmentById?s_id=${equipment.id}">
+                <a title="编辑"    id= "updateEdit"    href="/findEquipmentById?id=${equipment.id}">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
-                <a title="出库" onclick="member_del(this,'${equipment.id}')" href="javascript:;">
+                <a title="出库" onclick="member_update_Status(this,'${equipment.id}')" href="javascript:;">
                     <i class="layui-icon">&#x1007;</i>
                 </a>
-            </td>
+                    <a title="删除" onclick="member_del(this,'${equipment.id}','${equipment.equipmentStatus}')" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                </a>
+                </td>
         </tr>
 </c:forEach>
         </tbody>
@@ -295,7 +292,6 @@
     }).extend({
         excel: 'excel',
     });
-
     layui.use(['jquery', 'excel','form','layer','laydate'], function(){
         var form = layui.form,
             $ = layui.jquery,
@@ -310,7 +306,7 @@
         form.on('submit(toolbarDemo)', function(){
 
             $.ajax({
-                url: '/exportstudentlist',
+                url: '/exportEquipmentList',
                 type: 'post',
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
@@ -319,19 +315,20 @@
 
                     // 1. 如果需要调整顺序，请执行梳理函数
                     var dt = excel.filterExportData(data, [
-                        's_id'
-                        ,'s_studentid'
-                        ,'s_name'
-                        ,'s_sex'
-                        ,'s_age'
-                        ,'s_phone'
-                        ,'s_classid'
-                        ,'s_classname'
-                        ,'s_dormitoryid'
+                        'id'
+                        ,'code'
+                        ,'name'
+                        ,'price'
+                        ,'leaderName'
+                        ,'equipmentTypeName'
+                        ,'department'
+                        ,'formatCreatTime'
+                        ,'formatUpdateTime'
+                        ,'formatEquipmentStatus'
                     ]);
 
                     // 2. 数组头部新增表头
-                    dt.unshift({s_id: 'ID', s_studentid: '学号', s_name: '姓名', s_sex: '性别', s_age: '年龄', s_phone: '电话', s_classid: '班级编号', s_classname: '班级名', s_dormitoryid: '寝室编号'});
+                    dt.unshift({id: 'ID', code: '器材编号', name: '器材名称', price: '器材价格', leaderName: '负责人', equipmentTypeName: '器材类型', department: '部门', formatCreatTime: '创建时间', formatUpdateTime: '更新时间',formatEquipmentStatus:'器材状态'});
 
                     // 意思是：A列40px，B列60px(默认)，C列120px，D、E、F等均未定义
                     var colConf = excel.makeColConfig({
@@ -344,7 +341,7 @@
                     // 3. 执行导出函数，系统会弹出弹框
                     excel.exportExcel({
                         sheet1: dt
-                    }, '学生数据.xlsx', 'xlsx', {
+                    }, '器材数据.xlsx', 'xlsx', {
                         extend: {
                             '!cols': colConf
                         }
@@ -391,6 +388,19 @@
                         //重新渲染 固定写法
                     }
                 })
+                $.ajax({
+                    url: '/findEquipmentTypeList',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (data) {
+                        //使用循环遍历，给下拉列表赋值
+                        for(let i of data){
+                            $('#classTypeId').append(new Option(i.name, i.id));
+                        }
+                        form.render();
+                        //重新渲染 固定写法
+                    }
+                })
             });
             $("#addEmployeeForm")[0].reset();
             form.on('submit(formDemo)', function(data) {
@@ -398,7 +408,7 @@
                 var param=data.field;
                 // console.log(JSON.stringify(param));
                 $.ajax({
-                    url: '/addStudent',
+                    url: '/addEquipment',
                     type: "post",
                     data:JSON.stringify(param),
                     contentType: "application/json; charset=utf-8",
@@ -418,23 +428,50 @@
 
 
     });
+
     /*删除*/
-    function member_del(obj,s_id){
+    function member_del(obj,id,status){
         layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-           $.get("/deleteStudent",{"s_id":s_id},function (data) {
+            console.log(status);
+            if(status==0){
+                layer.alert("对不起,该器材没有出库，无法删除！");
+            }
+            else {
+                //发异步删除数据
+                $.get("/deleteEquipment", {"id": id}, function (data) {
+                    if (data = true) {
+                        layer.msg('删除成功!', {icon: 1, time: 2000});
+                        setTimeout(function () {
+                            window.location.href = '/findEquipment';
+                        }, 2000);
+
+                    } else {
+                        layer.msg('删除失败!', {icon: 1, time: 3000});
+                        setTimeout(function () {
+                            window.location.href = '/findEquipment';
+                        }, 2000);
+                    }
+                });
+            }
+        });
+    }
+    /*出库*/
+    function member_update_Status(obj,id){
+        layer.confirm('确认要出库吗？',function(index){
+            //发异步
+            console.log(id);
+            $.get("/updateEquipmentStatus",{"id":id},function (data) {
                 if(data =true){
-                    layer.msg('删除成功!',{icon:1,time:2000});
-                  setTimeout(function () {window.location.href='/findEquipment';},2000);
+                    layer.msg('出库成功!',{icon:1,time:2000});
+                    setTimeout(function () {window.location.href='/findEquipment';},2000);
 
                 }else {
-                    layer.msg('删除失败!',{icon:1,time:3000});
+                    layer.msg('出库失败!',{icon:1,time:3000});
                     setTimeout(function () {window.location.href='/findEquipment';},2000);
                 }
             });
         });
     }
-
 </script>
 
 

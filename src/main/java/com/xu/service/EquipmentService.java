@@ -1,5 +1,6 @@
 package com.xu.service;
 
+import com.xu.entity.EquipmentExportResult;
 import com.xu.entity.EquipmentResult;
 import com.xu.entity.PageInfo;
 import com.xu.entity.Equipment;
@@ -59,11 +60,17 @@ public interface EquipmentService {
      * @param id
      * @return
      */
-    public Equipment findEquipmentById(Long id);
+    public EquipmentResult findEquipmentById(Long id);
 
     /**
      * 查询器材表中的所有信息
      * @return
      */
     public List<Equipment> findAll();
+
+    /**
+     * 导出实验器材
+     * @return
+     */
+   public List<EquipmentExportResult> findEquipmentExportAll();
 }

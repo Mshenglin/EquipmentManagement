@@ -1,10 +1,12 @@
 package com.xu.entity;
 
+import java.io.Serializable;
+
 /**
  * 返回到前端的实体类
  * @author Alkmg
  */
-public class EquipmentResult extends Equipment{
+public class EquipmentResult extends Equipment implements Serializable {
     private  String leaderName;
     private String  EquipmentTypeName;
 
@@ -28,7 +30,7 @@ public class EquipmentResult extends Equipment{
     public String toString() {
         return "EquipmentResult{" +
                 "userName='" + leaderName + '\'' +
-                ", EquipmentTypeName='" + EquipmentTypeName + '\'' +
+                ", EquipmentTypeName='" + EquipmentTypeName + '\'' + super.toString()+
                 '}';
     }
 }

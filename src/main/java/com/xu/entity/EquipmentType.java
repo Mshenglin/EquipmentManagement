@@ -6,34 +6,29 @@ package com.xu.entity;
  */
 public class EquipmentType {
     Long id;
-    String EquipmentTypeName;
+    String name;
 
-    public EquipmentType(java.lang.Long id, String EquipmentTypeName) {
-        this.id = id;
-        this.EquipmentTypeName = EquipmentTypeName;
-    }
-
-    public java.lang.Long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(java.lang.Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getEquipmentTypeName() {
-        return EquipmentTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setLong(String aLong) {
-        this.EquipmentTypeName = EquipmentTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "EquipmentType{" +
                 "id=" + id +
-                ", Long='" + EquipmentTypeName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

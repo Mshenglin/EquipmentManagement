@@ -1,6 +1,7 @@
 package com.xu.dao;
 
 import com.xu.entity.Equipment;
+import com.xu.entity.EquipmentExportResult;
 import com.xu.entity.EquipmentResult;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,11 +53,17 @@ public interface EquipmentDao {
      * @param id
      * @return
      */
-    public Equipment selectEquipmentById(Long id);
+    public EquipmentResult selectEquipmentById(Long id);
 
     /**
      * 查询Equipment表中的所有信息
      * @return
      */
     public List<Equipment> selectAll();
+
+    /**
+     * 导出实验器材
+     * @return
+     */
+    List<EquipmentResult> selectEquipmentExportList();
 }

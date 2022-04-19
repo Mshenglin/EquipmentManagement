@@ -5,10 +5,7 @@
     <!--添加器材信息-->
     <insert id="insertEquipment" parameterType="Equipment" keyProperty="id" useGeneratedKeys="true">
         insert into equipment (code,name,price,department,description,leader_id,equipment_type_id,equipment_status,create_time,update_time)
-        values(#{code},#{name},#{price},#{department},
-        <if test="description!=null and description!=0">
-            #{description}
-        </if> ,#{leaderId},#{equipmentTypeId},#{equipmentStatus},#{createTime},#{updateTime})
+        values(#{code},#{name},#{price},#{department},#{description} ,#{leaderId},#{equipmentTypeId},#{equipmentStatus},#{createTime},#{updateTime})
     </insert>
 
     <!--通过id删除器材信息-->
@@ -16,8 +13,13 @@
         delete from equipment where id=#{id}
     </delete>
 
-    <select id="selectEquipmentById"  parameterType="Long" resultType="Equipment" >
-        select * from equipment where id=#{id}
+    <select id="selectEquipmentById"  parameterType="Long" resultType="EquipmentResult" >
+        SELECT e.*,u.name leader_name,t.name equipment_type_name
+        FROM
+            equipment e
+                left JOIN equipment_type t ON e.equipment_type_id = t.id
+                left JOIN all_user u ON u.id=e.`leader_id`
+        where e.id=#{id}
     </select>
 
     <select id="selectAll" resultType="Equipment">
@@ -34,29 +36,29 @@
             <if test="name !=null and name !=''">
                 name=#{name},
             </if>
-            <if test="price !=null and price !=''">
+            <if test="price !=null">
                 price=#{price},
             </if>
-            <if test="department !=null and department !=0">
+            <if test="department !=null and department !=''">
                 department=#{department},
             </if>
-            <if test="description !=null and description !=0">
+            <if test="description !=null and description !=''">
                 description=#{description},
             </if>
-            <if test="leaderId !=null and leaderId !=''">
+            <if test="leaderId !=null">
                 leader_id=#{leaderId},
             </if>
-            <if test="equipmentTypeId !=null and equipmentTypeId !=''">
+            <if test="equipmentTypeId !=null">
                 equipment_type_id=#{createTime},
             </if>
-            <if test="equipmentStatus !=null and equipmentStatus !=''">
+            <if test="equipmentStatus !=null">
                 equipment_status=#{equipmentStatus},
             </if>
-            <if test="createTime !=null and createTime !=''">
+            <if test="createTime !=null">
                 create_time=#{createTime},
             </if>
-            <if test="updateTime !=null and updateTime !=''">
-                update_time=#{updateTime},
+            <if test="updateTime !=null">
+                update_time=#{updateTime}
             </if>
         </set>
         where id = #{id}
@@ -82,7 +84,7 @@
                 and  name like  '%${name}%'
             </if>
             <if test="equipmentType!=null and equipmentType!='' ">
-                and  equipmentType like  '%${equipmentType}%'
+                and  t.name like  '%${equipmentType}%'
             </if>
             <if test="department!=null and department!='' ">
                 and  department like  '%${department}%'
@@ -91,9 +93,20 @@
         ORDER BY  id asc
         limit #{currentPage},#{pageSize}
     </select>
+    <select id="selectEquipmentExportList"  resultType="EquipmentResult">
+        SELECT e.*,u.name leader_name,t.name equipment_type_name
+        FROM
+            equipment e
+                left JOIN equipment_type t ON e.equipment_type_id = t.id
+                left JOIN all_user u ON u.id=e.`leader_id`
+    </select>
     <!--查询数据总数-->
     <select id="selectTotalCount" resultType="Integer">
-        select count(id) from equipment
+        SELECT count(1)
+        FROM
+        equipment e
+        left JOIN equipment_type t ON e.equipment_type_id = t.id
+        left JOIN all_user u ON u.id=e.`leader_id`
         <where>
             <if test="id!=null and id!=0">
                 and  id like  '%${id}%'
@@ -105,7 +118,7 @@
                 and  name like  '%${name}%'
             </if>
             <if test="equipmentType!=null and equipmentType!='' ">
-                and  equipmentType like  '%${equipmentType}%'
+                and  t.name like  '%${equipmentType}%'
             </if>
             <if test="department!=null and department!='' ">
                 and  department like  '%${department}%'

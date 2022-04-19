@@ -1,14 +1,14 @@
 package com.xu.service.impl;
 
 import com.xu.dao.EquipmentDao;
-import com.xu.entity.Equipment;
-import com.xu.entity.EquipmentResult;
-import com.xu.entity.PageInfo;
-import com.xu.entity.User;
+import com.xu.entity.*;
 import com.xu.service.EquipmentService;
+import com.xu.util.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -58,12 +58,34 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public Equipment findEquipmentById(Long id) {
+    public EquipmentResult findEquipmentById(Long id) {
         return equipmentDao.selectEquipmentById(id);
     }
 
     @Override
     public List<Equipment> findAll() {
         return equipmentDao.selectAll();
+    }
+
+    @Override
+    public List<EquipmentExportResult> findEquipmentExportAll() {
+        List<EquipmentExportResult> res=new LinkedList<>();
+        List<EquipmentResult> ru=equipmentDao.selectEquipmentExportList();
+        //遍历赋值
+        for (EquipmentResult equipmentResult:ru
+             ) {
+            EquipmentExportResult equipmentExportResult=new EquipmentExportResult();
+            BeanUtils.copyProperties(equipmentResult,equipmentExportResult);
+            equipmentExportResult.setFormatCreatTime(DateUtil.getFormatTime(equipmentResult.getCreateTime()));
+            equipmentExportResult.setFormatUpdateTime(DateUtil.getFormatTime(equipmentResult.getUpdateTime()));
+            if(equipmentResult.getEquipmentStatus()==0){
+                equipmentExportResult.setFormatEquipmentStatus("已入库");
+            }
+            else{
+                equipmentExportResult.setFormatEquipmentStatus("已出库");
+            }
+            res.add(equipmentExportResult);
+        }
+        return res;
     }
 }
