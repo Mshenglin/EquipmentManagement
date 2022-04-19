@@ -3,7 +3,7 @@ package com.xu.dao;
 
 import com.xu.entity.User;
 import org.apache.ibatis.annotations.Param;
-
+import java.lang.Long;
 import java.util.List;
 import java.util.Map;
 
@@ -74,4 +74,6 @@ public interface UserDao {
      * @return
      */
     public List<Map<Long,String>> selectUserIdAndUserName();
+
+    public Integer selectUserIdByName(String leaderName);
 }

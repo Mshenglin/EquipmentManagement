@@ -49,7 +49,7 @@
                 leader_id=#{leaderId},
             </if>
             <if test="equipmentTypeId !=null">
-                equipment_type_id=#{createTime},
+                equipment_type_id=#{equipmentTypeId},
             </if>
             <if test="equipmentStatus !=null">
                 equipment_status=#{equipmentStatus},
@@ -75,19 +75,19 @@
         left JOIN all_user u ON u.id=e.`leader_id`
         <where>
             <if test="id!=null and id!=0">
-                and  id like  '%${id}%'
+                and  e.id like  '%${id}%'
             </if>
             <if test="code!=null and code!='' ">
-                and  code like  '%${code}%'
+                and  e.code like  '%${code}%'
             </if>
             <if test="name!=null and name!='' ">
-                and  name like  '%${name}%'
+                and  e.name like  '%${name}%'
             </if>
             <if test="equipmentType!=null and equipmentType!='' ">
                 and  t.name like  '%${equipmentType}%'
             </if>
             <if test="department!=null and department!='' ">
-                and  department like  '%${department}%'
+                and  e.department like  '%${department}%'
             </if>
         </where>
         ORDER BY  id asc
@@ -109,19 +109,19 @@
         left JOIN all_user u ON u.id=e.`leader_id`
         <where>
             <if test="id!=null and id!=0">
-                and  id like  '%${id}%'
+                and  e.id like  '%${id}%'
             </if>
             <if test="code!=null and code!='' ">
-                and  code like  '%${code}%'
+                and  e.code like  '%${code}%'
             </if>
             <if test="name!=null and name!='' ">
-                and  name like  '%${name}%'
+                and  e.name like  '%${name}%'
             </if>
             <if test="equipmentType!=null and equipmentType!='' ">
                 and  t.name like  '%${equipmentType}%'
             </if>
             <if test="department!=null and department!='' ">
-                and  department like  '%${department}%'
+                and  e.department like  '%${department}%'
             </if>
         </where>
     </select>

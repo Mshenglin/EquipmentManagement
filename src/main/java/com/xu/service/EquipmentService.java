@@ -5,6 +5,7 @@ import com.xu.entity.EquipmentResult;
 import com.xu.entity.PageInfo;
 import com.xu.entity.Equipment;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,4 +74,8 @@ public interface EquipmentService {
      * @return
      */
    public List<EquipmentExportResult> findEquipmentExportAll();
+    /**
+     * 批量导入实验器材
+     */
+    public String batchInsertEquipment(Sheet sheet);
 }

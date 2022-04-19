@@ -47,4 +47,6 @@
 		<!-- 给出需要扫描Dao接口包 -->
 		<property name="basePackage" value="com.xu.dao" />
 	</bean>
+	<bean id="threadPoolUtil" class="com.xu.config.CommonConfig"></bean>
+	<bean id="ExcelForEquipmentImportUtil" class="com.xu.util.ExcelForEquipmentImportUtil"></bean>
 </beans>

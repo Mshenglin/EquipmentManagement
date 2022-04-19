@@ -61,9 +61,21 @@
     <xblock>
         <button id="addEquipmentBtn" class="layui-btn layui-btn-normal"> <i class="layui-icon">&#xe654;</i>添加 </button>
         <button class="layui-btn layui-btn-warm" lay-filter="toolbarDemo" lay-submit=""><i class="layui-icon">&#xe67c;</i>导出</button>
+        <button id="importData" class="layui-btn  layui-btn-normal" lay-filter="toolImport" lay-submit="" onclick="upload()"><i class="layui-icon">&#xe601;</i>导入</button>
         <span class="x-right" style="line-height:40px">共有数据：${pi.totalCount} 条</span>
     </xblock>
-
+    <div style="display: none;padding: 5px" id="showUploadExcelDiv">
+        <form action="" method="post" class="layui-form layui-form-pane" id="exportFrm" lay-filter="exportFrm">
+            <div class="layui-upload" >
+                <button type="button" style="margin-top: 20px;margin-left: 20px" class="layui-btn layui-btn-warm"
+                        onclick="downloadTemplate()">下载模板</button>
+                <button type="button" style="margin-top: 20px;margin-left: 20px" class="layui-btn layui-btn-normal"
+                        id="chooseFile">选择文件</button>
+                <button type="button" style="margin-top: 20px" class="layui-btn"
+                        id="uploadFle">开始上传</button>
+            </div>
+        </form>
+    </div>
     <%--添加模态框--%>
     <div class="layui-row" id="test" style="display: none;">
         <div class="layui-col-md10">
@@ -292,6 +304,7 @@
     }).extend({
         excel: 'excel',
     });
+
     layui.use(['jquery', 'excel','form','layer','laydate'], function(){
         var form = layui.form,
             $ = layui.jquery,
@@ -429,6 +442,66 @@
 
     });
 
+    /**
+     * 添加导入动态模拟框
+     */
+    function upload(){
+        layer.open({
+            type: 1,
+            area: ['800px','150px'],
+            fixed: false,
+            title: '导入数据',
+            content: $("#showUploadExcelDiv"),
+            end: function () {
+                location.reload();
+            }
+        })
+    }
+    function downloadTemplate(){
+        //后端下载地址 TODO
+        location.href="/downloadTemplate";
+    }
+    /* 导入 */
+    layui.use(['form', 'layedit','upload'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            layer = layui.layer,
+            layedit = layui.layedit,
+            upload=layui.upload;
+
+        upload.render({
+            elem: "#chooseFile",
+            url: '/importExcel',
+            // 与bindAction一起使用，不直接上传，当点击#uploadFle按钮时才上传
+            auto: false,
+            bindAction: '#uploadFle',
+            accept: "file",
+            size: 10240,
+            exts: 'xls|xlsx',
+            /* 上传完毕回调 */
+            done: function (res) {
+                /* 后端传code值：1代表成功，0代表失败 */
+                var code = res.code;
+                if(code == "1"){
+                    layer.confirm(res.msg, {title:'批量导入结果'},function(index){
+                        layer.close(index);
+                        window.location.reload()
+                    });
+                }else{
+                    //失败后弹出页面，上面附有失败原因（后端写好传来）
+                    layer.confirm(res.msg, {title:'导入失败，系统提示'},function(index){
+                        layer.close(index);
+                        window.location.reload()
+                    });
+                }
+            },
+            error: function(){
+                //请求异常回调
+                top.$.jBox.tip("服务器异常，请稍后再试");
+                window.location.reload()
+            }
+        });
+    })
     /*删除*/
     function member_del(obj,id,status){
         layer.confirm('确认要删除吗？',function(index){

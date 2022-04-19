@@ -42,7 +42,7 @@ public class UserDaoTest extends BaseTest {
 	@Test
 	public void selectUserIdAndName(){
 
-		System.out.println(userDao.selectUserIdAndUserName());
+		System.out.println(userDao.selectUserIdByName("马生林"));
 
 	}
 }
