@@ -22,7 +22,7 @@ public class CommonInterceptor implements HandlerInterceptor {
             }
             // 获取 session
             HttpSession session = request.getSession();
-            Object obj = session.getAttribute("user");
+            Object obj = session.getAttribute("ad");
             if (obj != null){
                 return true;
             }
