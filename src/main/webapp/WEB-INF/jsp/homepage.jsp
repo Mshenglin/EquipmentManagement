@@ -76,7 +76,7 @@
                     </li>
 
                     <li>
-                        <a _href="/findClassStudent">
+                        <a _href="/findOperational">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>器材操作日志查询</cite>
@@ -94,17 +94,16 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/findDormitory">
+                        <a _href="/findEquipmentType">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>实验器材类型管理</cite>
                         </a>
                     </li>
                 </ul>
-
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/findDormitoryStudent">
+                        <a _href="/findOperationalType">
                             <%--点击在右侧出现动态的Tab--%>
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>实验器材日志查询</cite>

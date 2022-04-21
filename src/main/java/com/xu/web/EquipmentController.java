@@ -2,7 +2,9 @@ package com.xu.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xu.annotation.EquipmentOperationalLog;
 import com.xu.entity.*;
+import com.xu.enums.OperationalTypeEnum;
 import com.xu.service.EquipmentService;
 import com.xu.service.EquipmentTypeService;
 import com.xu.util.ExcelForEquipmentImportUtil;
@@ -42,10 +44,10 @@ public class EquipmentController {
         model.addAttribute("pi", pi);
         return "equipment_list";
     }
-
+    @EquipmentOperationalLog(operationalType = OperationalTypeEnum.INSERT)
     @RequestMapping("/addEquipment")
-    public String addEquipment(@RequestBody Equipment equipment) {
-        Long time = System.currentTimeMillis() * 1000;
+    public String addEquipment(@RequestBody Equipment equipment,HttpSession session) {
+        Long time = System.currentTimeMillis() ;
         equipment.setCreateTime(time);
         equipment.setUpdateTime(time);
         equipment.setEquipmentStatus(0);
@@ -59,8 +61,9 @@ public class EquipmentController {
      * @param id
      * @return
      */
+    @EquipmentOperationalLog(operationalType = OperationalTypeEnum.DELETE)
     @RequestMapping("/deleteEquipment")
-    public String deleteEquipment(Long id) {
+    public String deleteEquipment(Long id,HttpSession session) {
         equipmentService.deleteEquipment(id);
         return "equipment_list";
     }
@@ -71,12 +74,13 @@ public class EquipmentController {
      * @param id
      * @return
      */
+    @EquipmentOperationalLog(operationalType = OperationalTypeEnum.UPDATE)
     @RequestMapping("/updateEquipmentStatus")
-    public String updateEquipmentStatus(Long id) {
+    public String updateEquipmentStatus(Long id,HttpSession session) {
         Equipment equipment = new Equipment();
         equipment.setId(id);
         equipment.setEquipmentStatus(1);
-        equipment.setUpdateTime(System.currentTimeMillis() * 1000);
+        equipment.setUpdateTime(System.currentTimeMillis());
         equipmentService.updateEquipment(equipment);
         return "equipment_list";
     }
@@ -84,10 +88,11 @@ public class EquipmentController {
     /**
      * 更改器材数据
      */
+    @EquipmentOperationalLog(operationalType = OperationalTypeEnum.UPDATE)
     @RequestMapping(value = "/updateEquipment")
-    public String updateEquipment(Equipment equipment) {
+    public String updateEquipment(Equipment equipment,HttpSession session) {
         logger.info("updateEquipment" + equipment);
-        equipment.setUpdateTime(System.currentTimeMillis() * 1000);
+        equipment.setUpdateTime(System.currentTimeMillis());
         equipmentService.updateEquipment(equipment);
         return "redirect:/findEquipment";
     }
@@ -124,7 +129,7 @@ public class EquipmentController {
         XSSFWorkbook wb0 = new XSSFWorkbook(is);
         try {
             OutputStream out = response.getOutputStream();
-            response.setHeader("Content-disposition", "attachment;filename=" + new String("导入器导入清单模板.xlsx".getBytes("gb2312"), "ISO8859-1"));
+            response.setHeader("Content-disposition", "attachment;filename=" + new String("器材导入模板.xlsx".getBytes("gb2312"), "ISO8859-1"));
             response.setContentType("application/msexcel;charset=UTF-8");
             wb0.write(out);
             out.flush();
@@ -155,7 +160,7 @@ public class EquipmentController {
         try {
             InputStream inputStream = file.getInputStream();
             //写个工具类，处理excel 的校验、保存：返回值直接是可以对接前端的
-            resultMap = util.readExcel(inputStream, file.getOriginalFilename(), new Equipment());
+            resultMap = util.readExcel(inputStream, file.getOriginalFilename());
             inputStream.close();
             return resultMap;
         } catch (Exception e) {

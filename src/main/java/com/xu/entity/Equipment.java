@@ -45,7 +45,7 @@ public class Equipment implements Serializable {
     private Integer equipmentTypeId;
 
     /**
-     * 器材类型id
+     * 器材状态
      */
     private Integer equipmentStatus;
     /**

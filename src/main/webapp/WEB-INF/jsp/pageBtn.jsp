@@ -11,9 +11,9 @@
 <head>
     <title>后台登录</title>
     <link rel="stylesheet" href="/css/pg_btn.css">
-    <script type="text/javascript" src="./js/jquery-1.3.2.min.js"></script>
-    <script src="lib/layui/layui.js"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
+    <script src="/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
 </head>
 <body>
    <div class="page-bar" id="pg_div">

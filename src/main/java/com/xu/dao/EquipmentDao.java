@@ -1,9 +1,9 @@
 package com.xu.dao;
 
 import com.xu.entity.Equipment;
-import com.xu.entity.EquipmentExportResult;
 import com.xu.entity.EquipmentResult;
 import org.apache.ibatis.annotations.Param;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import java.util.List;
 
@@ -66,4 +66,11 @@ public interface EquipmentDao {
      * @return
      */
     List<EquipmentResult> selectEquipmentExportList();
+    /**
+     * 根据器材的编号去查询器材的id
+     * 用于操作日志记录，由于在插入之前 没有形成id
+     * @param code 器材编号
+     * @return
+     */
+    public Equipment selectEquipmentByCode(String code);
 }

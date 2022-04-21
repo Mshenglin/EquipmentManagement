@@ -41,7 +41,7 @@ public class ExcelForEquipmentImportUtil {
      * @return
      * @throws Exception
      */
-    public  HashMap<String, Object> readExcel(InputStream in, String fileName, Equipment equipment) throws Exception {
+    public  HashMap<String, Object> readExcel(InputStream in, String fileName) throws Exception {
         //构建返回值
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         //创建Excel工作薄

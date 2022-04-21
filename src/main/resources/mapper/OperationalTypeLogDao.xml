@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.OperationalTypeLogDao" >
+    <!--添加器材类型操作日志-->
+    <insert id="insertOperationalTypeLog" parameterType="OperationalTypeLog" keyProperty="id" useGeneratedKeys="true">
+        insert into operational_type_logs (username,equipment_type_id,create_time,operational_id,remark)
+        values(#{username},#{equipmentTypeId},#{createTime},#{operationalId},#{remark})
+    </insert>
+    <select id="selectAll" resultType="OperationalTypeLog">
+        select * from operational_type_logs;
+    </select>
+
+    <!--分页查询-->
+    <select id="selectOperationalTypeLogList"  resultType="OperationalTypeLog">
+        SELECT *
+        FROM
+        operational_type_logs
+        <where>
+            <if test="id!=null and id!=0">
+                and equipment_type_id like  '%${id}%'
+            </if>
+            <if test="username!=null and username!='' ">
+                and  username like  '%${username}%'
+            </if>
+        </where>
+        ORDER BY  id desc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="selectTotalCount" resultType="Integer">
+        select count(id) from operational_type_logs
+        <where>
+            <if test="id!=null and id!=0">
+                and equipment_type_id like  '%${id}%'
+            </if>
+            <if test="username!=null and username!='' ">
+                and  username like  '%${username}%'
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -6,6 +6,7 @@ import com.xu.dao.UserDao;
 import com.xu.entity.*;
 import com.xu.runable.ImportTask;
 import com.xu.service.EquipmentService;
+import com.xu.service.OperationalService;
 import com.xu.util.DateUtil;
 import com.xu.util.ExcelForEquipmentImportUtil;
 import com.xu.util.ThreadPoolUtil;
@@ -142,7 +143,7 @@ public class EquipmentServiceImpl implements EquipmentService {
                 equipment.setLeaderId(leaderId);
                 equipment.setEquipmentStatus(0);
                 equipment.setDepartment(getStringCellValue(row.getCell(5)));
-                Long time=System.currentTimeMillis()*1000;
+                Long time=System.currentTimeMillis();
                 equipment.setCreateTime(time);
                 equipment.setUpdateTime(time);
                 equipmentList.add(equipment);
@@ -157,10 +158,9 @@ public class EquipmentServiceImpl implements EquipmentService {
             for (int i = 0; i < equipmentList.size(); i++) {
                 threadPoolUtil.execute(new ImportTask(equipmentDao,equipmentList.get(i)));
             }
-        } finally {
-            threadPoolUtil.shutDown();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return result;
     }
     }

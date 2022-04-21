@@ -12,7 +12,12 @@
     <delete id="deleteEquipment" parameterType="Long" >
         delete from equipment where id=#{id}
     </delete>
-
+    <select id="selectEquipmentByCode"  parameterType="String" resultType="Equipment" >
+        SELECT *
+        FROM
+            equipment
+        where code=#{code}
+    </select>
     <select id="selectEquipmentById"  parameterType="Long" resultType="EquipmentResult" >
         SELECT e.*,u.name leader_name,t.name equipment_type_name
         FROM

@@ -29,4 +29,8 @@ public class EquipmentDaoTest extends BaseTest {
         List<EquipmentResult> e=new ArrayList<>();
         System.out.println(e=equipmentDao.selectEquipmentExportList());
     }
+    @Test
+    public  void nowTime(){
+        System.out.println(System.currentTimeMillis());
+    }
 }
